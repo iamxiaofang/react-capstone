@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { _saveQuestion } from "../_DATA";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { handleLoadData, handleSaveQuestion } from "../actions";
 
 export const AddQuestionPage = () => {
 
@@ -20,20 +20,9 @@ export const AddQuestionPage = () => {
 
   const handleCreate = (e) => {
     e.preventDefault()
-
-    dispatch({ type: 'LOADING', data: true })
-    _saveQuestion({
-      optionOneText,
-      optionTwoText,
-      author
-    })
-      .then(() => {
-        navigate('/')
-      })
-      .catch(e => alert(e))
-      .finally(() => {
-        dispatch({ type: 'LOADING', data: false })
-      })
+    dispatch(handleSaveQuestion({ optionOneText, optionTwoText, author }))
+    dispatch(handleLoadData())
+    navigate('/')
   }
 
   return (

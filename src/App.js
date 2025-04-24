@@ -6,8 +6,7 @@ import "./App.css";
 import { HomePage, LeaderboardPage, AddQuestionPage, QuestionPage, LoginPage } from "./pages";
 import { Nav } from './components'
 
-// CHEATING
-import { _getQuestions, _getUsers } from './_DATA'
+import { handleLoadData } from './actions';
 
 function App() {
 
@@ -15,19 +14,7 @@ function App() {
   const loading = useSelector((state) => state.loading)
 
   useEffect(() => {
-    async function getData() {
-      dispatch({ type: 'LOADING', data: true })
-
-      const [questions, users] = await Promise.all([
-        _getQuestions(),
-        _getUsers()
-      ])
-
-      dispatch({ type: 'QUESTIONS', data: questions })
-      dispatch({ type: 'USERS', data: users })
-      dispatch({ type: 'LOADING', data: false })
-    }
-    getData()
+    dispatch(handleLoadData())
   }, [dispatch])
 
   const user = useSelector((state) => state.login.user)

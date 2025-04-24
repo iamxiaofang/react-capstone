@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 export const LeaderboardPage = () => {
 
   const users = useSelector(state => state.users)
+  const questions = useSelector(state => state.questions)
 
   return (
     <table className="leaderboard">
@@ -11,7 +12,7 @@ export const LeaderboardPage = () => {
         {Object.values(users)
           .map((user) => {
             const answered = Object.keys(user.answers).length
-            const created = user.questions.length
+            const created = Object.values(questions).filter(q => q.author === user.id).length
             return {
               user,
               answered,

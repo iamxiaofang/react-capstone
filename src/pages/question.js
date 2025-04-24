@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { _saveQuestionAnswer } from "../_DATA"
+import { handleLoadData, handleSaveQuestionAnswer } from "../actions"
 
 export const QuestionPage = () => {
   const { question_id } = useParams()
@@ -18,16 +18,12 @@ export const QuestionPage = () => {
   const percentOptionTwo = Number(numVotedOptionTwo / (numVotedOptionOne + numVotedOptionTwo) * 100).toFixed(2)
 
   const handleVote = (answer) => {
-    dispatch({ type: "LOADING", data: true })
-    _saveQuestionAnswer({
-      authedUser: user.id,
+    dispatch(handleSaveQuestionAnswer({
       qid: question.id,
-      answer,
-    }).then(() => {
-      // todo
-    }).finally(() => {
-      dispatch({ type: "LOADING", data: false })
-    })
+      authedUser: user.id,
+      answer
+    }))
+    dispatch(handleLoadData())
   }
 
   return (
