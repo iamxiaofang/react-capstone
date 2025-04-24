@@ -1,24 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import "./App.css";
+import { HomePage, LeaderboardPage, AddQuestionPage, QuestionPage, LoginPage } from "./pages";
+import { Nav } from './components'
+
+// CHEATING
+import { _getQuestions, _getUsers } from './_DATA'
 
 function App() {
+
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading)
+
+  useEffect(() => {
+    async function getData() {
+      dispatch({ type: 'LOADING', data: true })
+
+      const [questions, users] = await Promise.all([
+        _getQuestions(),
+        _getUsers()
+      ])
+
+      dispatch({ type: 'QUESTIONS', data: questions })
+      dispatch({ type: 'USERS', data: users })
+      dispatch({ type: 'LOADING', data: false })
+    }
+    getData()
+  }, [dispatch])
+
+  const user = useSelector((state) => state.login.user)
+
+  if (loading) {
+    return 'Loading....'
+  }
+
+
+  if (!user) {
+    return <LoginPage />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Nav />
+      <div className="page">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/add" element={<AddQuestionPage />} />
+          <Route path="/questions/:question_id" element={<QuestionPage />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
