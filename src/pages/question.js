@@ -5,13 +5,19 @@ import { handleLoadData, handleSaveQuestionAnswer } from "../actions"
 export const QuestionPage = () => {
   const { question_id } = useParams()
   const dispatch = useDispatch()
-
   const question = useSelector(state => state.questions[question_id])
   const users = useSelector(state => state.users)
   const user = useSelector(state => state.login.user)
-  const author = users[question.author]
-  const hasVoted = question.optionOne.votes.includes(user.id) || question.optionTwo.votes.includes(user.id)
 
+  if (!question) {
+    return "Not Found"
+  }
+
+
+  const author = users[question.author]
+  const hasVoted1 = question.optionOne.votes.includes(user.id)
+  const hasVoted2 = question.optionTwo.votes.includes(user.id)
+  const hasVoted = hasVoted1 || hasVoted2
   const numVotedOptionOne = question.optionOne.votes.length;
   const numVotedOptionTwo = question.optionTwo.votes.length;
   const percentOptionOne = Number(numVotedOptionOne / (numVotedOptionOne + numVotedOptionTwo) * 100).toFixed(2)
@@ -33,7 +39,7 @@ export const QuestionPage = () => {
       <p>{author.id}</p>
       <p>{new Date(question.timestamp).toDateString()}</p>
       <div className="votes">
-        <div className="vote">
+        <div className={`vote ${hasVoted1 ? 'voted' : ''}`}>
           <p>
             {question.optionOne.text}
           </p>
@@ -42,7 +48,7 @@ export const QuestionPage = () => {
             : <button onClick={() => handleVote('optionOne')}>Vote</button>}
           </p>
         </div>
-        <div className="vote">
+        <div className={`vote ${hasVoted2 ? 'voted' : ''}`}>
           <p>{question.optionTwo.text}</p>
           <p>{hasVoted
             ? <>{numVotedOptionTwo} Votes - {percentOptionTwo}%</>
