@@ -67,3 +67,8 @@
   background-color: aquamarine;
   border: 1px solid green;
 }
+
+.home-header {
+  display: flex;
+  gap: 10px;
+}

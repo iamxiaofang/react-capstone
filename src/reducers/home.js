@@ -1,6 +1,6 @@
-export default function reducer(state = false, action) {
+export default function reducer(state = 0, action) {
   switch (action.type) {
-    case 'LOADING':
+    case 'HOME_TAB':
       return action.data;
     default:
       return state;
