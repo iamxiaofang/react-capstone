@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 export const Nav = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user)
@@ -8,7 +8,7 @@ export const Nav = () => {
 
   }
   return (
-    <div className='nav'>
+    <div className='nav' role='navigation'>
       <ul className="nav-links">
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/leaderboard">Leaderboard</NavLink></li>

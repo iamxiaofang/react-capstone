@@ -4,25 +4,29 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import configureMockStore from 'redux-mock-store';
 import { thunk } from "redux-thunk";
-import App from './App';
+import { Nav } from './nav';
 
 const mockStore = configureMockStore([thunk]);
 
-test('renders app', () => {
+test('Nav', () => {
   const store = mockStore({
     loading: false,
     questions: {},
-    login: { user: null },
+    login: {
+      user: {
+        id: 'testUser',
+        name: 'Test User',
+        avatarURL: 'https://example.com/avatar.png',
+      }
+    },
   });
 
-  render(
+  const component = render(
     <Provider store={store}>
-      <MemoryRouter future={{ v7_relativeSplatPath: true }}>
-        <App />
+      <MemoryRouter>
+        <Nav />
       </MemoryRouter>
     </Provider>
   );
-
-  const userElement = screen.getByText(/Login/i);
-  expect(userElement).toBeInTheDocument();
+  expect(component).toMatchSnapshot();
 });

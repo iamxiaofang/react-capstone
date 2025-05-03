@@ -32,15 +32,15 @@ export const LoginPage = () => {
     <form>
       <p>
         <label htmlFor="username">Username: </label>
-        <input onChange={handleUsernameChange} value={username} name="username" text="text" />
+        <input data-testid="username" onChange={handleUsernameChange} value={username} name="username" text="text" />
       </p>
 
       <p>
         <label htmlFor="password">Password: </label>
-        <input onChange={handlePasswordChange} value={password} name="password" type="text" />
+        <input data-testid="password" onChange={handlePasswordChange} value={password} name="password" type="text" />
       </p>
 
-      <button onClick={handleLogin}>Login</button>
+      <button data-testid="login-button" onClick={handleLogin}>Login</button>
     </form>
   )
 }

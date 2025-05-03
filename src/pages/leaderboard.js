@@ -35,4 +35,4 @@ export const LeaderboardPage = () => {
       </tbody>
     </table>
   )
-} 
+}
