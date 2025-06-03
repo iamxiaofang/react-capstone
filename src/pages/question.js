@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import { handleLoadData, handleSaveQuestionAnswer } from "../actions"
+import { Button } from "../components"
 
 export const QuestionPage = () => {
   const { question_id } = useParams()
@@ -45,14 +46,14 @@ export const QuestionPage = () => {
           </p>
           <p>{hasVoted
             ? <>{numVotedOptionOne} Votes - {percentOptionOne}%</>
-            : <button onClick={() => handleVote('optionOne')}>Vote</button>}
+            : <Button onClick={() => handleVote('optionOne')}>Vote</Button>}
           </p>
         </div>
         <div className={`vote ${hasVoted2 ? 'voted' : ''}`}>
           <p>{question.optionTwo.text}</p>
           <p>{hasVoted
             ? <>{numVotedOptionTwo} Votes - {percentOptionTwo}%</>
-            : <button onClick={() => handleVote('optionTwo')}>Vote</button>
+            : <Button onClick={() => handleVote('optionTwo')}>Vote</Button>
           }</p>
         </div>
       </div>

@@ -1,11 +1,6 @@
-.leaderboard {
-  border: 1px solid black;
-  width: 100%;
-}
-
-.leaderboard thead {
-  background-color: beige;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .nav {
   display: flex;
@@ -71,4 +66,8 @@
 .home-header {
   display: flex;
   gap: 10px;
+}
+
+#login-form {
+  width: 300px;
 }

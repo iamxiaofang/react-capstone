@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { handleLoadData, handleSaveQuestion } from "../actions";
-
+import { Input, Button } from "../components";
 export const AddQuestionPage = () => {
 
   const navigate = useNavigate()
@@ -26,17 +26,22 @@ export const AddQuestionPage = () => {
   }
 
   return (
-    <form>
-      <h1>Would You Rather</h1>
-      <p>
+
+    <form className="flex flex-col gap-4 w-[400px]">
+      <h1 className="text-2xl">Would You Rather</h1>
+
+      <div className="flex flex-col w-full gap-2">
         <label>Option one:</label>
-        <input value={optionOneText} onChange={handleOptionOne} type="text" />
-      </p>
-      <p>
+        <Input value={optionOneText} onChange={handleOptionOne} type="text" />
+      </div>
+
+      <div className="flex flex-col w-full gap-2">
         <label>Option two:</label>
-        <input value={optionTwoText} onChange={handleOptionTwo} type="text" />
-      </p>
-      <button onClick={handleCreate}>Create question</button>
+        <Input value={optionTwoText} onChange={handleOptionTwo} type="text" />
+      </div>
+
+      <Button onClick={handleCreate}>Create question</Button>
     </form>
+
   )
 }

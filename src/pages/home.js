@@ -20,7 +20,6 @@ export const HomePage = () => {
       <div className="home-header">
         <button onClick={() => handleTabChange(0)}>New Questions</button>
         <button onClick={() => handleTabChange(1)}>Done</button>
-
       </div>
 
       {homeTab === 0 && (

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Input, Button } from "../components";
 
 export const LoginPage = () => {
   const [username, setUsename] = useState('');
@@ -29,18 +30,20 @@ export const LoginPage = () => {
   const users = useSelector((state) => state.users)
 
   return (
-    <form>
-      <p>
-        <label htmlFor="username">Username: </label>
-        <input data-testid="username" onChange={handleUsernameChange} value={username} name="username" text="text" />
-      </p>
+    <div className="flex justify-center items-center h-screen">
+      <Box>
+        <p className="flex flex-col w-full">
+          <label htmlFor="username">Username: </label>
+          <Input data-testid="username" onChange={handleUsernameChange} value={username} name="username" text="text" />
+        </p>
 
-      <p>
-        <label htmlFor="password">Password: </label>
-        <input data-testid="password" onChange={handlePasswordChange} value={password} name="password" type="text" />
-      </p>
+        <p className="flex flex-col w-full">
+          <label htmlFor="password">Password: </label>
+          <Input data-testid="password" onChange={handlePasswordChange} value={password} name="password" type="text" />
+        </p>
 
-      <button data-testid="login-button" onClick={handleLogin}>Login</button>
-    </form>
+        <Button className="w-full" data-testid="login-button" onClick={handleLogin}>Login</Button>
+      </Box>
+    </div>
   )
 }
